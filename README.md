@@ -7,6 +7,8 @@ At this initital stage, this extension only covers the most common and used func
 
 The idea behind this project is replace the **RegexKitLite** library without the necessity to change your source code written using the **RegexKitLite** (Only the #import should be replaced).
 
+Current implemented functions
+=============================
 ```objc
 - (BOOL)isMatchedByRegex:(NSString *)regex;
 - (BOOL)isMatchedByRegex:(NSString *)regex inRange:(NSRange)range;
