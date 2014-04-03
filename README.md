@@ -27,4 +27,4 @@ Current implemented functions
 External libraries
 ==================
 
-No external libraries are needed.
+No external libraries are required.
