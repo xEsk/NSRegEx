@@ -32,7 +32,7 @@
 
 - (BOOL)isMatchedByRegex:(NSString *)regex
 {
-	return [self isMatchedByRegex:self inRange:NSMakeRange(0, self.length)];
+	return [self isMatchedByRegex:regex inRange:NSMakeRange(0, self.length)];
 }
 
 - (BOOL)isMatchedByRegex:(NSString *)regex inRange:(NSRange)range
