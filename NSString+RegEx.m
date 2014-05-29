@@ -97,4 +97,27 @@
 	return pieces;
 }
 
+- (NSArray *)arrayOfCaptureComponentsMatchedByRegex:(NSString *)regex
+{
+    NSError *error = NULL;
+    NSRegularExpression *regExpression = [NSRegularExpression regularExpressionWithPattern:regex options:NSRegularExpressionCaseInsensitive error:&error];
+    NSMutableArray *test = [NSMutableArray array];
+    NSArray *matches = [regExpression matchesInString:self options:NSRegularExpressionSearch range:NSMakeRange(0, self.length)];
+    for(NSTextCheckingResult *match in matches) {
+        NSMutableArray *result = [NSMutableArray arrayWithCapacity:match.numberOfRanges];
+        for(NSInteger i=0; i<match.numberOfRanges; i++) {
+            NSRange matchRange = [match rangeAtIndex:i];
+            NSString *matchStr = nil;
+            if(matchRange.location != NSNotFound) {
+                matchStr = [self substringWithRange:matchRange];
+            } else {
+                matchStr = @"";
+            }
+            [result addObject:matchStr];
+        }
+        [test addObject:result];
+    }
+    return test;
+}
+
 @end
