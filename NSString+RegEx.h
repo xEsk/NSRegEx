@@ -41,4 +41,6 @@
 - (NSArray *)componentsMatchedByRegex:(NSString *)regex inRange:(NSRange)range;
 - (NSArray *)componentsMatchedByRegex:(NSString *)regex capture:(NSInteger)capture inRange:(NSRange)range;
 
+- (NSArray *)arrayOfCaptureComponentsMatchedByRegex: (NSString *)regex;
+
 @end
