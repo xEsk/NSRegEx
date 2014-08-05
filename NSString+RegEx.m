@@ -1,28 +1,28 @@
 //
-//  NSString+RegEx.m
-//  NSRegEx (https://github.com/xEsk/NSRegEx)
+// NSString+RegEx.m
+// NSRegEx (https://github.com/xEsk/NSRegEx)
 //
-//  Created by Xesc on 03/04/14.
+// Created by Xesc on 03/04/14.
 //
-//  The MIT License (MIT)
+// The MIT License (MIT)
 //
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
-//  The above copyright notice and this permission notice shall be included in all
-//  copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 //
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-//  SOFTWARE.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 #import "NSString+RegEx.h"
 
@@ -99,25 +99,30 @@
 
 - (NSArray *)arrayOfCaptureComponentsMatchedByRegex:(NSString *)regex
 {
-    NSError *error = NULL;
-    NSRegularExpression *regExpression = [NSRegularExpression regularExpressionWithPattern:regex options:NSRegularExpressionCaseInsensitive error:&error];
-    NSMutableArray *test = [NSMutableArray array];
-    NSArray *matches = [regExpression matchesInString:self options:NSRegularExpressionSearch range:NSMakeRange(0, self.length)];
-    for(NSTextCheckingResult *match in matches) {
-        NSMutableArray *result = [NSMutableArray arrayWithCapacity:match.numberOfRanges];
-        for(NSInteger i=0; i<match.numberOfRanges; i++) {
-            NSRange matchRange = [match rangeAtIndex:i];
-            NSString *matchStr = nil;
-            if(matchRange.location != NSNotFound) {
-                matchStr = [self substringWithRange:matchRange];
-            } else {
-                matchStr = @"";
-            }
-            [result addObject:matchStr];
-        }
-        [test addObject:result];
-    }
-    return test;
+	NSError *error = NULL;
+	NSRegularExpression *regExpression = [NSRegularExpression regularExpressionWithPattern:regex options:NSRegularExpressionCaseInsensitive error:&error];
+	NSMutableArray *test = [NSMutableArray array];
+	NSArray *matches = [regExpression matchesInString:self options:NSRegularExpressionSearch range:NSMakeRange(0, self.length)];
+	for (NSTextCheckingResult *match in matches)
+	{
+		NSMutableArray *result = [NSMutableArray arrayWithCapacity:match.numberOfRanges];
+		for (NSInteger i = 0; i < match.numberOfRanges; i++)
+		{
+			NSRange matchRange = [match rangeAtIndex:i];
+			NSString *matchStr = nil;
+			if (matchRange.location != NSNotFound)
+			{
+				matchStr = [self substringWithRange:matchRange];
+			}
+			else
+			{
+				matchStr = @"";
+			}
+			[result addObject:matchStr];
+		}
+		[test addObject:result];
+	}
+	return test;
 }
 
 @end
