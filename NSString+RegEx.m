@@ -32,97 +32,96 @@
 
 - (BOOL)isMatchedByRegex:(NSString *)regex
 {
-	return [self isMatchedByRegex:regex inRange:NSMakeRange(0, self.length)];
+    return [self isMatchedByRegex:regex inRange:NSMakeRange(0, self.length)];
 }
 
 - (BOOL)isMatchedByRegex:(NSString *)regex inRange:(NSRange)range
 {
-	return [NSRegEx(regex) numberOfMatchesInString:self options:0 range:range] > 0;
+    return [NSRegEx(regex) numberOfMatchesInString:self options:0 range:range] > 0;
 }
 
 - (NSString *)stringByMatching:(NSString *)regex
 {
-	return [self stringByMatching:regex capture:0L];
+    return [self stringByMatching:regex capture:0L];
 }
 
 - (NSString *)stringByMatching:(NSString *)regex capture:(NSInteger)capture
 {
-	return [self stringByMatching:regex capture:capture inRange:NSMakeRange(0, self.length)];
+    return [self stringByMatching:regex capture:capture inRange:NSMakeRange(0, self.length)];
 }
 
 - (NSString *)stringByMatching:(NSString *)regex inRange:(NSRange)range
 {
-	return [self stringByMatching:regex capture:0L inRange:range];
+    return [self stringByMatching:regex capture:0L inRange:range];
 }
 
 - (NSString *)stringByMatching:(NSString *)regex capture:(NSInteger)capture inRange:(NSRange)range
 {
-	NSTextCheckingResult *match = [NSRegEx(regex) firstMatchInString:self options:0 range:range];
-	return match && capture < match.numberOfRanges ? [self substringWithRange:[match rangeAtIndex:capture]] : nil;
+    NSTextCheckingResult *match = [NSRegEx(regex) firstMatchInString:self options:0 range:range];
+    return match && capture < match.numberOfRanges ? [self substringWithRange:[match rangeAtIndex:capture]] : nil;
 }
 
 - (NSArray *)componentsMatchedByRegex:(NSString *)regex
 {
-	return [self componentsMatchedByRegex:regex capture:0L];
+    return [self componentsMatchedByRegex:regex capture:0L];
 }
 
 - (NSArray *)componentsMatchedByRegex:(NSString *)regex capture:(NSInteger)capture
 {
-	return [self componentsMatchedByRegex:regex capture:capture inRange:NSMakeRange(0, self.length)];
+    return [self componentsMatchedByRegex:regex capture:capture inRange:NSMakeRange(0, self.length)];
 }
 
 - (NSArray *)componentsMatchedByRegex:(NSString *)regex inRange:(NSRange)range
 {
-	return [self componentsMatchedByRegex:regex capture:0L inRange:range];
+    return [self componentsMatchedByRegex:regex capture:0L inRange:range];
 }
 
 - (NSArray *)componentsMatchedByRegex:(NSString *)regex capture:(NSInteger)capture inRange:(NSRange)range
 {
-	// get locations of matches
-	NSMutableArray *matchingRanges = [NSMutableArray array];
-	NSArray *matches = [NSRegEx(regex) matchesInString:self options:0 range:range];
-	for (NSTextCheckingResult *match in matches)
-	{
-		if (capture < match.numberOfRanges)
-		{
-			[matchingRanges addObject:[NSValue valueWithRange:[match rangeAtIndex:capture]]];
-		}
-	}
-	// use split ranges to select pieces
-	NSMutableArray *pieces = [NSMutableArray array];
-	for (NSValue *value in matchingRanges)
-	{
-		[pieces addObject:[self substringWithRange:value.rangeValue]];
-	}
-	return pieces;
+    // get locations of matches
+    NSMutableArray *matchingRanges = [NSMutableArray array];
+    NSArray *matches = [NSRegEx(regex) matchesInString:self options:0 range:range];
+    for (NSTextCheckingResult *match in matches)
+    {
+        if (capture < match.numberOfRanges)
+        {
+            [matchingRanges addObject:[NSValue valueWithRange:[match rangeAtIndex:capture]]];
+        }
+    }
+    // use split ranges to select pieces
+    NSMutableArray *pieces = [NSMutableArray array];
+    for (NSValue *value in matchingRanges)
+    {
+        [pieces addObject:[self substringWithRange:value.rangeValue]];
+    }
+    return pieces;
 }
 
 - (NSArray *)arrayOfCaptureComponentsMatchedByRegex:(NSString *)regex
 {
-	NSError *error = NULL;
-	NSRegularExpression *regExpression = [NSRegularExpression regularExpressionWithPattern:regex options:NSRegularExpressionCaseInsensitive error:&error];
-	NSMutableArray *test = [NSMutableArray array];
-	NSArray *matches = [regExpression matchesInString:self options:NSRegularExpressionSearch range:NSMakeRange(0, self.length)];
-	for (NSTextCheckingResult *match in matches)
-	{
-		NSMutableArray *result = [NSMutableArray arrayWithCapacity:match.numberOfRanges];
-		for (NSInteger i = 0; i < match.numberOfRanges; i++)
-		{
-			NSRange matchRange = [match rangeAtIndex:i];
-			NSString *matchStr = nil;
-			if (matchRange.location != NSNotFound)
-			{
-				matchStr = [self substringWithRange:matchRange];
-			}
-			else
-			{
-				matchStr = @"";
-			}
-			[result addObject:matchStr];
-		}
-		[test addObject:result];
-	}
-	return test;
+    NSMutableArray *test = [NSMutableArray array];
+    NSArray *matches = [NSRegEx(regex) matchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length)];
+    // iterate over matches
+    for (NSTextCheckingResult *match in matches)
+    {
+        NSMutableArray *result = [NSMutableArray arrayWithCapacity:match.numberOfRanges];
+        for (NSInteger i = 0; i < match.numberOfRanges; i++)
+        {
+            NSRange matchRange = [match rangeAtIndex:i];
+            NSString *matchStr = nil;
+            if (matchRange.location != NSNotFound)
+            {
+                matchStr = [self substringWithRange:matchRange];
+            }
+            else
+            {
+                matchStr = @"";
+            }
+            [result addObject:matchStr];
+        }
+        [test addObject:result];
+    }
+    return test;
 }
 
 - (NSString *)stringByReplacingOccurrencesOfRegex:(NSString *)regexString withString:(NSString *)replaceWithString
@@ -131,3 +130,4 @@
 }
 
 @end
+
