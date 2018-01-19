@@ -25,6 +25,8 @@ Current implemented functions
 - (NSArray *)componentsMatchedByRegex:(NSString *)regex capture:(NSInteger)capture inRange:(NSRange)range;
 
 - (NSArray *)arrayOfCaptureComponentsMatchedByRegex: (NSString *)regex;
+
+- (NSString *)stringByReplacingOccurrencesOfRegex:(NSString *)regexString withString:(NSString *)replaceWithString;
 ```
 
 External libraries
