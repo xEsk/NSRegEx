@@ -26,7 +26,7 @@
 
 #import "NSString+RegEx.h"
 
-#define NSRegEx(regex) [NSRegularExpression regularExpressionWithPattern:regex options:NSRegularExpressionCaseInsensitive error:nil]
+#define NSRegEx(regex) [NSRegularExpression regularExpressionWithPattern:regex options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:nil]
 
 @implementation NSString (RegEx)
 
@@ -130,4 +130,3 @@
 }
 
 @end
-
