@@ -127,9 +127,7 @@
 
 - (NSString *)stringByReplacingOccurrencesOfRegex:(NSString *)regexString withString:(NSString *)replaceWithString
 {
-	NSError *error = NULL;
-    NSRegularExpression *regExpression = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive error:nil];
-    return [regExpression stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, self.length) withTemplate:replaceWithString];
+    return [NSRegEx(regexString) stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, self.length) withTemplate:replaceWithString];
 }
 
 @end
