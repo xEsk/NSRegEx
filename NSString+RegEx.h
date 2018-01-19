@@ -43,4 +43,6 @@
 
 - (NSArray *)arrayOfCaptureComponentsMatchedByRegex: (NSString *)regex;
 
+- (NSString *)stringByReplacingOccurrencesOfRegex:(NSString *)regexString withString:(NSString *)replaceWithString;
+
 @end
