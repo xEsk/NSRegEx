@@ -26,7 +26,7 @@
 
 #import "NSString+RegEx.h"
 
-#define NSRegEx(regex) [[NSRegularExpression alloc] initWithPattern:regex options:0 error:nil]
+#define NSRegEx(regex) [NSRegularExpression regularExpressionWithPattern:regex options:NSRegularExpressionCaseInsensitive error:nil]
 
 @implementation NSString (RegEx)
 
